@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single Page App</title>
+    <script src="/static/react.development.js"></script>
+    <script src="/static/react-dom.development.js"></script>
+    <script src="/static/prop-types.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module">
+    const element = React.createElement('a', { href: 'https://xkcd.com/222/' },
+        React.createElement('img', {
+            src: 'https://imgs.xkcd.com/comics/random_number.png',
+            alt: 'RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.'
+        }),
+        React.createElement('p', null, 'By Randall Munroe')
+    );
+    ReactDOM.render(element, document.getElementById('root'));
+</script>
+</body>
+</html>
