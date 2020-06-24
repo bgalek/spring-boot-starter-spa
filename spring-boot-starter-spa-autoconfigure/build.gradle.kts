@@ -53,6 +53,13 @@ tasks.withType<AbstractArchiveTask> {
     setProperty("archiveBaseName", rootProject.name)
 }
 
+tasks.withType<Javadoc> {
+    options.memberLevel = JavadocMemberLevel.PACKAGE
+    if (JavaVersion.current().isJava9Compatible) {
+        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
+    }
+}
+
 tasks.jar {
     manifest {
         attributes(mapOf("Implementation-Title" to rootProject.name, "Implementation-Version" to rootProject.name))
@@ -64,12 +71,18 @@ tasks.register<Jar>("sourcesJar") {
     archiveClassifier.set("sources")
 }
 
+tasks.register<Jar>("javadocJar") {
+    from(tasks.javadoc)
+    archiveClassifier.set("javadoc")
+}
+
 publishing {
     publications {
         create<MavenPublication>("sonatype") {
             artifactId = "spring-boot-starter-spa"
             from(components["java"])
             artifact(tasks["sourcesJar"])
+            artifact(tasks["javadocJar"])
             versionMapping {
                 usage("java-api") {
                     fromResolutionOf("runtimeClasspath")

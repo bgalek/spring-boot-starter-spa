@@ -24,6 +24,8 @@ class SinglePageAppController {
      * That's how SPA applications work.
      * <p>
      * If this url is not matched, spring continues checking other resolvers REST controllers and static files resolver.
+     *
+     * @return String (forward to index page)
      **/
     @GetMapping(value = {"/{path:^(?!.*\\.[a-z0-9]+$).*$}", "/**/{path:^(?!.*\\.[a-z0-9]+$).*$}"}, produces = MediaType.TEXT_HTML_VALUE)
     public String forward() {
