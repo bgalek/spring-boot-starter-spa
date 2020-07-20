@@ -5,10 +5,27 @@
 ![Maven Central](https://img.shields.io/maven-central/v/com.github.bgalek.spring.boot/spring-boot-starter-spa)
 
 ## Why?
-//TODO
+Single Page Apps require one thing: return index.html on HTML request.
+
+Sometimes it's wise to separate your apps (api backend & frontend backend + frontend)
+- but then you'll have to deal with versioning both aps in compatible way. 
+
+For simple use cases it's totally ok to have spring-boot serve your SPA application (build i.e. by webpack).
+
+Spring-boot does not support this feature out of the box. I've found multiple workarounds (404 page filters, manual file checking etc.)
+and decided to make no-brainer library to handle this problem.
 
 ## Usage
 Add library dependency:
 ```groovy
 compile "com.github.bgalek.spring.boot:spring-boot-starter-spa:1.0.0"
 ```
+
+Copy your fontend application to `/public` or `/static` folder during your app build phase.
+
+## Compatibility
+
+This configuration won't affect your:
+
+- API calls (registered Controllers)
+- Existing static files
