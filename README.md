@@ -7,8 +7,7 @@
 ## Why?
 Single Page Apps require one thing: return index.html on HTML request.
 
-Sometimes it's wise to separate your apps (api backend & frontend backend + frontend)
-- but then you'll have to deal with versioning both aps in compatible way. 
+Sometimes it's wise to separate your apps (api backend & frontend backend + frontend) - but then you'll have to deal with versioning both aps in compatible way. 
 
 For simple use cases it's totally ok to have spring-boot serve your SPA application (build i.e. by webpack).
 
