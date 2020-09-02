@@ -17,7 +17,7 @@ and decided to make no-brainer library to handle this problem.
 ## Usage
 Add library dependency:
 ```groovy
-compile "com.github.bgalek.spring.boot:spring-boot-starter-spa:1.0.0"
+compile "com.github.bgalek.spring.boot:spring-boot-starter-spa:1.1.0"
 ```
 
 Copy your fontend application to `/public` or `/static` folder during your app build phase.
