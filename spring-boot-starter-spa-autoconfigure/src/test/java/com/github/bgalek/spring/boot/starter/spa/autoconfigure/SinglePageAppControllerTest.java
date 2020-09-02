@@ -72,6 +72,8 @@ public class SinglePageAppControllerTest {
                 Arguments.of("/some/frontend/url", MediaType.TEXT_HTML, "html works!"),
                 Arguments.of("/some/frontend-with-dash/url", MediaType.TEXT_HTML, "html works!"),
                 Arguments.of("/some/frontend-with-dash/1.0/url", MediaType.TEXT_HTML, "html works!"),
+                Arguments.of("/some/frontend-with-dash/something.interesting", MediaType.TEXT_HTML, "html works!"),
+                Arguments.of("/some/frontend-with-dash/1.0", MediaType.TEXT_HTML, "html works!"),
                 Arguments.of("/resource/resource.name/details/my-%20resource/1142472/data", MediaType.TEXT_HTML, "html works!"),
                 Arguments.of("/static/script.js", MediaType.ALL, "console.log('js works!');"),
                 Arguments.of("/app.css", MediaType.ALL, "#css { content: 'works!' }"),

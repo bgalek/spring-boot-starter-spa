@@ -27,7 +27,7 @@ class SinglePageAppController {
      *
      * @return String (forward to index page)
      **/
-    @GetMapping(value = {"/{path:^(?!.*\\.[a-z0-9]+$).*$}", "/**/{path:^(?!.*\\.[a-z0-9]+$).*$}"}, produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = {"/{path:^(?!.*\\.[a-z0-9]{2,5}$).*$}", "/**/{path:^(?!.*\\.[a-z0-9]{2,5}$).*$}"}, produces = MediaType.TEXT_HTML_VALUE)
     public String forward() {
         return "forward:/";
     }
