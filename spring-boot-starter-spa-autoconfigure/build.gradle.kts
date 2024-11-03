@@ -4,18 +4,23 @@ plugins {
     `java-library`
     `maven-publish`
     signing
-    id("org.springframework.boot") version "2.3.1.RELEASE"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    id("com.adarshr.test-logger") version "2.0.0"
-    id("pl.allegro.tech.build.axion-release") version "1.11.0"
+    id("org.springframework.boot") version "3.3.5"
+    id("io.spring.dependency-management") version "1.1.6"
+    id("com.adarshr.test-logger") version "4.0.0"
+    id("pl.allegro.tech.build.axion-release") version "1.18.14"
 }
 
 group = "com.github.bgalek.spring.boot"
 version = scmVersion.version
 
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+java {
+    withSourcesJar()
+    withJavadocJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
 repositories {
@@ -42,7 +47,7 @@ tasks.withType<Test> {
 }
 
 tasks.withType<BootJar> {
-    mainClassName = "com.github.bgalek.spring.boot.starter.spa.autoconfigure.SinglePageAppController"
+    mainClass = "com.github.bgalek.spring.boot.starter.spa.autoconfigure.SinglePageAppController"
 }
 
 tasks.withType<Jar> {
@@ -53,27 +58,10 @@ tasks.withType<AbstractArchiveTask> {
     setProperty("archiveBaseName", rootProject.name)
 }
 
-tasks.withType<Javadoc> {
-    options.memberLevel = JavadocMemberLevel.PACKAGE
-    if (JavaVersion.current().isJava9Compatible) {
-        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
-    }
-}
-
 tasks.jar {
     manifest {
         attributes(mapOf("Implementation-Title" to rootProject.name, "Implementation-Version" to rootProject.name))
     }
-}
-
-tasks.register<Jar>("sourcesJar") {
-    from(sourceSets.main.get().allJava)
-    archiveClassifier.set("sources")
-}
-
-tasks.register<Jar>("javadocJar") {
-    from(tasks.javadoc)
-    archiveClassifier.set("javadoc")
 }
 
 publishing {
@@ -81,8 +69,6 @@ publishing {
         create<MavenPublication>("sonatype") {
             artifactId = "spring-boot-starter-spa"
             from(components["java"])
-            artifact(tasks["sourcesJar"])
-            artifact(tasks["javadocJar"])
             versionMapping {
                 usage("java-api") {
                     fromResolutionOf("runtimeClasspath")
@@ -115,21 +101,27 @@ publishing {
                 }
             }
         }
-        repositories {
-            maven {
-                credentials {
-                    username = rootProject.properties["ossrhUsername"] as String?
-                    password = rootProject.properties["ossrhPassword"] as String?
-                }
-                val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-                val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-            }
+    }
+    repositories {
+        maven {
+	    credentials {
+		username = System.getenv("SONATYPE_USERNAME")
+                password = System.getenv("SONATYPE_PASSWORD")
+	    }
+            val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
         }
     }
 }
 
-signing {
-    useGpgCmd()
-    sign(publishing.publications["sonatype"])
+System.getenv("GPG_KEY_ID")?.let {
+    signing {
+        useInMemoryPgpKeys(
+            System.getenv("GPG_KEY_ID"),
+            System.getenv("GPG_PRIVATE_KEY"),
+            System.getenv("GPG_PRIVATE_KEY_PASSWORD")
+        )
+        sign(publishing.publications)
+    }
 }
