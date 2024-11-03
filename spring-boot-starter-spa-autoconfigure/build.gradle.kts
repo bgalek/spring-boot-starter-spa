@@ -15,7 +15,6 @@ version = scmVersion.version
 
 java {
     withSourcesJar()
-    withJavadocJar()
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))
         sourceCompatibility = JavaVersion.VERSION_17
