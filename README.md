@@ -20,7 +20,7 @@ Add library dependency:
 compile "com.github.bgalek.spring.boot:spring-boot-starter-spa:1.1.0"
 ```
 
-Copy your fontend application to `/public` or `/static` folder during your app build phase.
+Copy your frontend application to `/public` or `/static` folder during your app build phase.
 
 ## Compatibility
 

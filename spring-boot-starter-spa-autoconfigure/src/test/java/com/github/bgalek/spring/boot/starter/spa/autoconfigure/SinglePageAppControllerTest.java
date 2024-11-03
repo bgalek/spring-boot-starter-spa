@@ -75,10 +75,11 @@ public class SinglePageAppControllerTest {
                 Arguments.of("/some/frontend-with-dash/something.interesting", MediaType.TEXT_HTML, "html works!"),
                 Arguments.of("/some/frontend-with-dash/1.0", MediaType.TEXT_HTML, "html works!"),
                 Arguments.of("/resource/resource.name/details/my-%20resource/1142472/data", MediaType.TEXT_HTML, "html works!"),
-                Arguments.of("/static/script.js", MediaType.ALL, "console.log('js works!');"),
-                Arguments.of("/app.css", MediaType.ALL, "#css { content: 'works!' }"),
-                Arguments.of("/static/data.json", MediaType.ALL, "static works!"),
-                Arguments.of("/static/fa-solid-900.b5cf8ae2.woff2", MediaType.ALL, "static works!")
+                Arguments.of("/assets/script.js", MediaType.ALL, "console.log('js works!');"),
+                Arguments.of("/assets/css/app.css", MediaType.ALL, "#css { content: 'works!' }"),
+                Arguments.of("/assets/data.json", MediaType.ALL, "static works!"),
+                Arguments.of("/static/data2.json", MediaType.ALL, "static works!"),
+                Arguments.of("/assets/fa-solid-900.b5cf8ae2.woff2", MediaType.ALL, "static works!")
         );
     }
 
