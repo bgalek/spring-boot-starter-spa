@@ -8,7 +8,7 @@ plugins {
     id("org.springframework.boot") version "3.5.4"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.adarshr.test-logger") version "4.0.0"
-    id("pl.allegro.tech.build.axion-release") version "1.19.0"
+    id("pl.allegro.tech.build.axion-release") version "1.20.1"
 }
 
 group = "com.github.bgalek.spring.boot"
